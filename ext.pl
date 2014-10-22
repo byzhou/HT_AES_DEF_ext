@@ -5,11 +5,11 @@ use integer ;
 use warnings ;
 
 #system command to call the cell info extraction
-system ( "./lef_ext.pl" ) ;
+#system ( "./lef_ext.pl" ) ;
 
 #def file name
-$defHTFree  = "TrojanFree.def"
-$defHTIn    = "TrojanIn.def"
+$defHTFree  = "TrojanFree.def" ;
+$defHTIn    = "TrojanIn.def" ;
 
 #output file name
 $outFree    = "Free\_des.txt" ;
@@ -26,42 +26,37 @@ print $outFree . " has been successfully opened!\n" ;
 open $readFree , "<" , $defHTFree or die "$defHTFree is not available!\n" ;
 print $defHTFree . " has been successfully opened!\n" ;
 
-#write the name of the cell
-print $writeFile $lefname . "\n" ;
-
 #write info the cell
-while ( <$readFile> ) {
-    if ( /^-*/ ) {
-        print $writeFile "$&\n" ;
+while ( <$readFree> ) {
+    if ( /^\-*/ ) {
+        #print $writeFile "$&\n" ;
+
         #matching a floating number [-+]?([0-9]*\.[0-9]+|[0-9]+)
-        while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
-            if ( $XorY == 0 ) {
-                print $writeFile "X $&\t" ;
-                $XorY   = 1 ;
-            } else {
-                print $writeFile "Y $&\n" ;
-                $XorY   = 0 ;
+        #while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
+
+        while ( /[\S]*/g ) {
+            $countSpace ++ ;
+            if ( $countSpace == 2 ) {
+                $cellname       = $& ;
+                print $cellname ;
             }
         }
-    }
-    if ( /POLYGON*/ ) {
-        print $writeFile "$&\n" ;
-        while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
-            if ( $XorY == 0 ) {
-                print $writeFile "X $&\t" ;
-                $XorY   = 1 ;
-            } else {
-                print $writeFile "Y $&\n" ;
-                $XorY   = 0 ;
-            }
+            $countSpace     = 0 ;
+ 
+        while ( /\([0-9]*/g ) {
+#            $posX       = $& ;
+#            if ( $XorY == 0 ) {
+#                print $writeFile "X $&\t" ;
+#                $XorY   = 1 ;
+#            } else {
+#                print $writeFile "Y $&\n" ;
+#                $XorY   = 0 ;
+#            }
         }
     }
 }
 
-    #end of the one readFile
-    print $writeFile "\n" ;
-    close ( $readFile ) ;
-}
-
-close ( $writeFile ) ;
+#end of the one readFile
+close ( $readFree ) ;
+close ( $writeFree ) ;
 
