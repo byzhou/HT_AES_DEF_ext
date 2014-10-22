@@ -5,7 +5,7 @@ use integer ;
 use warnings ;
 
 $lefpre     = "lef\\" ;
-$lefsuf     = "\.lef" ;
+#$lefsuf     = "\.lef" ;
 $lefcell    = $lefpre ;
 $lefname    = $lefpre ;
 
@@ -14,50 +14,43 @@ $output     = "des\_ALLCELL.txt" ;
 open $writeFile , "+>" , $output or die "$output is not available!\n" ; 
 print $output . " has been successfully opened!\n" ;
 
+opendir ( DIR , $lefpre ) or die "$lefpre is not available!\n" ;
+print $lefpre . " has been successfully opened!\n" ;
+close ( DIR ) ;
+
 #cellname creation
-while ( <$lefpre . /*/ . $lefsuf> ) {
-    $lefcell    = "$&" ;
-    $lefname    = $lefpre . $lefcell . $lefsuf ; 
+while ( $lefcell = readdir ( DIR ) ) {
 
-#read file
-open $readFile , "<" , $lefname or die "$lefname is not available!\n" ;
-print $lefname . " has been successfully opened!\n" ;
+    #define cellname
+    $lefname    = $lefcell ;
 
-#write the name of the cell
-print $writeFile $lefname . "\n" ;
+    #read file
+    open $readFile , "<" , $lefname or die "$lefname is not available!\n" ;
+    print $lefname . " has been successfully opened!\n" ;
 
-#write info the cell
-while ( <$readFile> ) {
-    if ( /SIZE*/ ) {
-        print $writeFile "$&\n" ;
-        #matching a floating number [-+]?([0-9]*\.[0-9]+|[0-9]+)
-        while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
-            if ( $XorY == 0 ) {
-                print $writeFile "X $&\t" ;
-                $XorY   = 1 ;
-            } else {
-                print $writeFile "Y $&\n" ;
-                $XorY   = 0 ;
+    #write the name of the cell
+    print $writeFile $lefname . "\n" ;
+
+    #write info the cell
+    while ( <$readFile> ) {
+        if ( /SIZE*/ ) {
+            print $writeFile "$&\n" ;
+            #matching a floating number [-+]?([0-9]*\.[0-9]+|[0-9]+)
+            while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
+                if ( $XorY == 0 ) {
+                    print $writeFile "X $&\t" ;
+                    $XorY   = 1 ;
+                } else {
+                    print $writeFile "Y $&\n" ;
+                    $XorY   = 0 ;
+                }
             }
         }
     }
-    if ( /POLYGON*/ ) {
-        print $writeFile "$&\n" ;
-        while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
-            if ( $XorY == 0 ) {
-                print $writeFile "X $&\t" ;
-                $XorY   = 1 ;
-            } else {
-                print $writeFile "Y $&\n" ;
-                $XorY   = 0 ;
-            }
-        }
-    }
+    #end of the one readFile
+    print $writeFile "\n" ;
+
+    close ( $readFile ) ;
 }
-
-#end of the one readFile
-print $writeFile "\n" ;
-
-close ( $readFile ) ;
 close ( $writeFile ) ;
 
