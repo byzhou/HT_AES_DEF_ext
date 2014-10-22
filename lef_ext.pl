@@ -4,7 +4,7 @@ use File::Basename ;
 use integer ;
 use warnings ;
 
-$lefpre     = "lef\\" ;
+$lefpre     = "lef\/" ;
 #$lefsuf     = "\.lef" ;
 $lefcell    = $lefpre ;
 $lefname    = $lefpre ;
@@ -21,8 +21,11 @@ close ( DIR ) ;
 #cellname creation
 while ( $lefcell = readdir ( DIR ) ) {
 
+    #Use a regular expression to ignore files beginning with a period
+    next if ($lefcell =~ m/^\./);
+
     #define cellname
-    $lefname    = $lefcell ;
+    $lefname    = $lefpre . $lefcell ;
 
     #read file
     open $readFile , "<" , $lefname or die "$lefname is not available!\n" ;
