@@ -5,7 +5,7 @@ use integer ;
 use warnings ;
 
 $lefpre     = "lef\/" ;
-#$lefsuf     = "\.lef" ;
+$lefsuf     = "\.lef" ;
 $lefcell    = $lefpre ;
 $lefname    = $lefpre ;
 
@@ -32,7 +32,8 @@ while ( $lefcell = readdir ( DIR ) ) {
     print $lefname . " has been successfully opened!\n" ;
 
     #write the name of the cell
-    print $writeFile $lefname . "\n" ;
+    $lefcell        =~ s/$lefsuf//g ;
+    print $writeFile $lefcell . "\n" ;
 
     #write info the cell
     while ( <$readFile> ) {
