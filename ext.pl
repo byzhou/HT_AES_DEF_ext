@@ -42,6 +42,7 @@ while ( <$readFree> ) {
 
             #print $celldir . "\n" ;
             print  $. . "\n" ;
+            #print  $writeFree $. . "\n" ;
          
             #read the all standard cell reference file
             open $cellref , "<" , $cellinfo or die "$cellinfo is not available!\n" ;
@@ -57,9 +58,9 @@ while ( <$readFree> ) {
                 }
             }
 
-            #cell position limited in a square area
-            if ( ( $cellposx > 1000 ) && ( $cellposx < 2000 ) &&
-                    ( $cellposy > 1000 ) && ( $cellposy < 2000 ) ) {
+            #cell position limited in a square area  549860 424200
+            if ( ( $cellposx > 549860 ) && ( $cellposx < 424200 ) &&
+                    ( $cellposy > 550860 ) && ( $cellposy < 425200 ) ) {
                 switch ( $celldir ) {
                     case "N"    { 
                         print $writeFree $cellname . 
