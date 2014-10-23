@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 use File::Basename ;
-use integer ;
+#use integer ;
 use warnings ;
 
 #system command to call the cell info extraction
@@ -16,7 +16,8 @@ $outFree    = "Free\_des.txt" ;
 $outIn      = "In\_des.txt" ;
 
 #cell info file
-$celinfo    = "des_ALLCELL.txt" ;
+$cellinfo   = "des_ALLCELL.txt" ;
+my @definfo ;
 
 #write to Trojan Free file
 open $writeFree , "+>" , $outFree or die "$outFree is not available!\n" ; 
@@ -26,24 +27,20 @@ print $outFree . " has been successfully opened!\n" ;
 open $readFree , "<" , $defHTFree or die "$defHTFree is not available!\n" ;
 print $defHTFree . " has been successfully opened!\n" ;
 
+$countLoop      = 0 ;
 #write info the cell
-while ( <$readFree> ) {
-    if ( /^\-*/ ) {
+while ( <$readFree> && ( $countLoop < 1000 ) ) {
+    if ( /FE/ ) {
+        #print "found\n" ;
         #print $writeFile "$&\n" ;
 
         #matching a floating number [-+]?([0-9]*\.[0-9]+|[0-9]+)
         #while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
-
-        while ( /[\S]*/g ) {
-            $countSpace ++ ;
-            if ( $countSpace == 2 ) {
-                $cellname       = $& ;
-                print $cellname ;
-            }
-        }
-            $countSpace     = 0 ;
+        
+        #@definfo    = split ( ' ' , $' ) ;
+        #print $definfo[3] ;
  
-        while ( /\([0-9]*/g ) {
+#        while ( /\([0-9]*/g ) {
 #            $posX       = $& ;
 #            if ( $XorY == 0 ) {
 #                print $writeFile "X $&\t" ;
@@ -52,8 +49,9 @@ while ( <$readFree> ) {
 #                print $writeFile "Y $&\n" ;
 #                $XorY   = 0 ;
 #            }
-        }
+#        }
     }
+    $countLoop ++ ;
 }
 
 #end of the one readFile

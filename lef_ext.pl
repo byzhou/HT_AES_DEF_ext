@@ -8,6 +8,7 @@ $lefpre     = "lef\/" ;
 $lefsuf     = "\.lef" ;
 $lefcell    = $lefpre ;
 $lefname    = $lefpre ;
+$XorY       = 0 ;
 
 $output     = "des\_ALLCELL.txt" ;
 #write to file
