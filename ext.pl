@@ -41,7 +41,7 @@ while ( <$readFree> ) {
             $cellposy       = $definfo[2] ;
 
             #print $celldir . "\n" ;
-            print ( $. ) / ( 796613 ) * 100 . "\n" ;
+            print  $. . "\n" ;
          
             #read the all standard cell reference file
             open $cellref , "<" , $cellinfo or die "$cellinfo is not available!\n" ;
@@ -62,49 +62,49 @@ while ( <$readFree> ) {
                     ( $cellposy > 1000 ) && ( $cellposy < 2000 ) ) {
                 switch ( $celldir ) {
                     case "N"    { 
-                        print $outFree $cellname . 
+                        print $writeFree $cellname . 
                             "\t" . $cellposx . "\t" . $cellposy + $refysize .
                             "\t" . $cellposx + $refxsize . "\t" . $cellposy + $refysize .
                             "\t" . $cellposx + $refxsize . "\t" . $cellposy .
                             "\t" . $cellposx . "\t" . $cellposy 
                     } case "S"  {
-                        print $outFree $cellname . 
+                        print $writeFree $cellname . 
                             "\t" . $cellposx - $refxsize . "\t" . $cellposy .
                             "\t" . $cellposx . "\t" . $cellposy .
                             "\t" . $cellposx . "\t" . $cellposy - $refysize .
                             "\t" . $cellposx - $refxsize . "\t" . $cellposy - $refysize 
                     } case "W"  {
-                        print $outFree $cellname . 
+                        print $writeFree $cellname . 
                             "\t" . $cellposx - $refysize . "\t" . $cellposy + $refxsize .
                             "\t" . $cellposx . "\t" . $cellposy + $refxsize .
                             "\t" . $cellposx . "\t" . $cellposy .
                             "\t" . $cellposx - $refysize . "\t" . $cellposy 
                     } case "E"  {
-                        print $outFree $cellname . 
+                        print $writeFree $cellname . 
                             "\t" . $cellposx . "\t" . $cellposy .
                             "\t" . $cellposx + $refysize . "\t" . $cellposy .
                             "\t" . $cellposx + $refysize . "\t" . $cellposy - $refxsize .
                             "\t" . $cellposx . "\t" . $cellposy - $refxsize 
                     } case "FN"  {
-                        print $outFree $cellname . 
+                        print $writeFree $cellname . 
                             "\t" . $cellposx - $refxsize . "\t" . $cellposy + $refysize .
                             "\t" . $cellposx . "\t" . $cellposy + $refysize .
                             "\t" . $cellposx . "\t" . $cellposy .
                             "\t" . $cellposx - $refxsize . "\t" . $cellposy 
                     } case "FS"  {
-                        print $outFree $cellname . 
+                        print $writeFree $cellname . 
                             "\t" . $cellposx . "\t" . $cellposy .
                             "\t" . $cellposx + $refxsize . "\t" . $cellposy .
                             "\t" . $cellposx + $refxsize . "\t" . $cellposy - $refysize .
                             "\t" . $cellposx . "\t" . $cellposy - $refysize 
                     } case "FW"  {
-                        print $outFree $cellname . 
+                        print $writeFree $cellname . 
                             "\t" . $cellposx . "\t" . $cellposy + $refxsize .
                             "\t" . $cellposx + $refysize . "\t" . $cellposy + $refxsize .
                             "\t" . $cellposx + $refysize . "\t" . $cellposy .
                             "\t" . $cellposx . "\t" . $cellposy 
                     } else  {
-                        print $outFree $cellname . 
+                        print $writeFree $cellname . 
                             "\t" . $cellposx - $refysize . "\t" . $cellposy .
                             "\t" . $cellposx . "\t" . $cellposy .
                             "\t" . $cellposx . "\t" . $cellposy - $refxsize .
