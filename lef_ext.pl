@@ -23,7 +23,7 @@ close ( DIR ) ;
 while ( $lefcell = readdir ( DIR ) ) {
 
     #Use a regular expression to ignore files beginning with a period
-    next if ($lefcell =~ m/^\./);
+    next if ($lefcell =~ m/^\./ || $lefcell =~ m/^README\.md/ );
 
     #define cellname
     $lefname    = $lefpre . $lefcell ;
@@ -34,19 +34,19 @@ while ( $lefcell = readdir ( DIR ) ) {
 
     #write the name of the cell
     $lefcell        =~ s/$lefsuf//g ;
-    print $writeFile $lefcell . "\n" ;
+    print $writeFile $lefcell . "\t" ;
 
     #write info the cell
     while ( <$readFile> ) {
         if ( /SIZE*/ ) {
-            print $writeFile "$&\n" ;
+            print $writeFile "$&\t" ;
             #matching a floating number [-+]?([0-9]*\.[0-9]+|[0-9]+)
             while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
                 if ( $XorY == 0 ) {
-                    print $writeFile "X $&\t" ;
+                    print $writeFile "X\t$&\t" ;
                     $XorY   = 1 ;
                 } else {
-                    print $writeFile "Y $&\n" ;
+                    print $writeFile "Y\t$&" ;
                     $XorY   = 0 ;
                 }
             }

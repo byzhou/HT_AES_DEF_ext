@@ -17,7 +17,6 @@ $outIn      = "In\_des.txt" ;
 
 #cell info file
 $cellinfo   = "des_ALLCELL.txt" ;
-my @definfo ;
 
 #write to Trojan Free file
 open $writeFree , "+>" , $outFree or die "$outFree is not available!\n" ; 
@@ -27,31 +26,33 @@ print $outFree . " has been successfully opened!\n" ;
 open $readFree , "<" , $defHTFree or die "$defHTFree is not available!\n" ;
 print $defHTFree . " has been successfully opened!\n" ;
 
-$countLoop      = 0 ;
-#write info the cell
-while ( <$readFree> && ( $countLoop < 1000 ) ) {
-    if ( /FE/ ) {
-        #print "found\n" ;
-        #print $writeFile "$&\n" ;
 
-        #matching a floating number [-+]?([0-9]*\.[0-9]+|[0-9]+)
-        #while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
+#write info the cell
+while ( <$readFree> ) {
+    if ( /^\-/ ) {
         
-        #@definfo    = split ( ' ' , $' ) ;
-        #print $definfo[3] ;
- 
-#        while ( /\([0-9]*/g ) {
-#            $posX       = $& ;
-#            if ( $XorY == 0 ) {
-#                print $writeFile "X $&\t" ;
-#                $XorY   = 1 ;
-#            } else {
-#                print $writeFile "Y $&\n" ;
-#                $XorY   = 0 ;
-#            }
-#        }
+        my @definfo     = split ( ' ' , $' ) ;
+        if ( @definfo >= 2 ) {
+            $cellname       = $definfo[1] ;
+         
+            #read the all standard cell reference file
+            open $cellref , "<" , $cellinfo or die "$cellinfo is not available!\n" ;
+
+            while ( <$cellref> ) {
+                my @refinfo     = split ( '\t' , $_ ) ;
+                $refcellname    = $refinfo[0] ;
+                #print $refcellname . "\n" ;
+                if ( $refcellname eq $cellname ) {
+                    $refxsize       = $refinfo[3] ;
+                    $refysize       = $refinfo[5] ;
+                    last ;
+                }
+            }
+
+            close ( $cellref ) ;
+            #print $cellname . "\t" . $refxsize . "\t" . $refysize . "\n" ;
+        }
     }
-    $countLoop ++ ;
 }
 
 #end of the one readFile
