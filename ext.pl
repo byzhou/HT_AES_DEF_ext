@@ -69,6 +69,7 @@ while ( <$readFree> ) {
                 $refysize       = 100 * $refysize ;
 
                 print $cellname . "\t" . $cellposx . "\t" . $cellposy . "\t" . $celldir . "\t" . $refxsize . "\t" . $refysize . "\n" ;
+                #print $writeFree $cellname . "\t" . $cellposx . "\t" . $cellposy . "\t" . $celldir . "\t" . $refxsize . "\t" . $refysize . "\n" ;
                 switch ( $celldir ) {
                     case "N"    { 
                         print $writeFree $cellname .( 
