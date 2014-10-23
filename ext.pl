@@ -41,8 +41,9 @@ while ( <$readFree> ) {
             $cellposy       = $definfo[2] ;
 
             #print $celldir . "\n" ;
-            print  $. . "\n" ;
+            #print  $. . "\n" ;
             #print  $writeFree $. . "\n" ;
+            #print $cellname . "\t" . $cellposx . "\t" . $cellposy . "\t" . $celldir . "\n" ;
          
             #read the all standard cell reference file
             open $cellref , "<" , $cellinfo or die "$cellinfo is not available!\n" ;
@@ -58,58 +59,73 @@ while ( <$readFree> ) {
                 }
             }
 
-            #cell position limited in a square area  549860 424200
-            if ( ( $cellposx > 549860 ) && ( $cellposx < 424200 ) &&
-                    ( $cellposy > 550860 ) && ( $cellposy < 425200 ) ) {
+            #cell position limited in a square area 1001300 63000 
+            #if ( ( $cellposx > 996300 ) && ( $cellposx < 1006300 ) &&
+                    #( $cellposy > 58000 ) && ( $cellposy < 68000 ) ) {
+            if ( ( $cellposx > 0 ) && ( $cellposx < 1000000 ) &&
+                    ( $cellposy > 0 ) && ( $cellposy < 1000000 ) ) {
+                #print "found\n" ; 
+                $refxsize       = 100 * $refxsize ;
+                $refysize       = 100 * $refysize ;
+
+                print $cellname . "\t" . $cellposx . "\t" . $cellposy . "\t" . $celldir . "\t" . $refxsize . "\t" . $refysize . "\n" ;
                 switch ( $celldir ) {
                     case "N"    { 
-                        print $writeFree $cellname . 
-                            "\t" . $cellposx . "\t" . $cellposy + $refysize .
-                            "\t" . $cellposx + $refxsize . "\t" . $cellposy + $refysize .
-                            "\t" . $cellposx + $refxsize . "\t" . $cellposy .
-                            "\t" . $cellposx . "\t" . $cellposy 
+                        print $writeFree $cellname .( 
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refysize ).(
+                            "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy + $refysize ).(
+                            "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy ).(
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy )
+                            . "\n" 
                     } case "S"  {
-                        print $writeFree $cellname . 
-                            "\t" . $cellposx - $refxsize . "\t" . $cellposy .
-                            "\t" . $cellposx . "\t" . $cellposy .
-                            "\t" . $cellposx . "\t" . $cellposy - $refysize .
-                            "\t" . $cellposx - $refxsize . "\t" . $cellposy - $refysize 
+                        print $writeFree $cellname .( 
+                            "\t" ).( $cellposx - $refxsize ).( "\t" ).( $cellposy ).(
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refysize ).(
+                            "\t" ).( $cellposx - $refxsize ).( "\t" ).( $cellposy - $refysize )
+                            . "\n" 
                     } case "W"  {
-                        print $writeFree $cellname . 
-                            "\t" . $cellposx - $refysize . "\t" . $cellposy + $refxsize .
-                            "\t" . $cellposx . "\t" . $cellposy + $refxsize .
-                            "\t" . $cellposx . "\t" . $cellposy .
-                            "\t" . $cellposx - $refysize . "\t" . $cellposy 
+                        print $writeFree $cellname .( 
+                            "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy + $refxsize ).(
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refxsize ).(
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
+                            "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy )
+                            . "\n" 
                     } case "E"  {
-                        print $writeFree $cellname . 
-                            "\t" . $cellposx . "\t" . $cellposy .
-                            "\t" . $cellposx + $refysize . "\t" . $cellposy .
-                            "\t" . $cellposx + $refysize . "\t" . $cellposy - $refxsize .
-                            "\t" . $cellposx . "\t" . $cellposy - $refxsize 
+                        print $writeFree $cellname .( 
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
+                            "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy ).(
+                            "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy - $refxsize ).(
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refxsize )
+                            . "\n" 
                     } case "FN"  {
-                        print $writeFree $cellname . 
-                            "\t" . $cellposx - $refxsize . "\t" . $cellposy + $refysize .
-                            "\t" . $cellposx . "\t" . $cellposy + $refysize .
-                            "\t" . $cellposx . "\t" . $cellposy .
-                            "\t" . $cellposx - $refxsize . "\t" . $cellposy 
+                        print $writeFree $cellname .( 
+                            "\t" ).( $cellposx - $refxsize ).( "\t" ).( $cellposy + $refysize ).(
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refysize ).(
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
+                            "\t" ).( $cellposx - $refxsize ).( "\t" ).( $cellposy )
+                            . "\n" 
                     } case "FS"  {
-                        print $writeFree $cellname . 
-                            "\t" . $cellposx . "\t" . $cellposy .
-                            "\t" . $cellposx + $refxsize . "\t" . $cellposy .
-                            "\t" . $cellposx + $refxsize . "\t" . $cellposy - $refysize .
-                            "\t" . $cellposx . "\t" . $cellposy - $refysize 
+                        print $writeFree $cellname .( 
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
+                            "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy ).(
+                            "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy - $refysize ).(
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refysize )
+                            . "\n" 
                     } case "FW"  {
-                        print $writeFree $cellname . 
-                            "\t" . $cellposx . "\t" . $cellposy + $refxsize .
-                            "\t" . $cellposx + $refysize . "\t" . $cellposy + $refxsize .
-                            "\t" . $cellposx + $refysize . "\t" . $cellposy .
-                            "\t" . $cellposx . "\t" . $cellposy 
+                        print $writeFree $cellname .( 
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refxsize ).(
+                            "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy + $refxsize ).(
+                            "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy ).(
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy )
+                            . "\n" 
                     } else  {
-                        print $writeFree $cellname . 
-                            "\t" . $cellposx - $refysize . "\t" . $cellposy .
-                            "\t" . $cellposx . "\t" . $cellposy .
-                            "\t" . $cellposx . "\t" . $cellposy - $refxsize .
-                            "\t" . $cellposx - $refysize . "\t" . $cellposy - $refxsize 
+                        print $writeFree $cellname .( 
+                            "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy ).(
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
+                            "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refxsize ).(
+                            "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy - $refxsize )
+                            . "\n" 
                     } 
                 } #end switch
 
