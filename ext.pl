@@ -41,7 +41,7 @@ while ( <$readFree> ) {
             $cellposy       = $definfo[2] ;
 
             #print $celldir . "\n" ;
-            print $. . "\n" ;
+            print ( $. ) / ( 796613 ) * 100 . "\n" ;
          
             #read the all standard cell reference file
             open $cellref , "<" , $cellinfo or die "$cellinfo is not available!\n" ;
