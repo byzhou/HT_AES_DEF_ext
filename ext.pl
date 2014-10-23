@@ -30,22 +30,18 @@ print $defHTFree . " has been successfully opened!\n" ;
 #write info the cell
 while ( <$readFree> ) {
 
-    if ( /^\-/ ) {
+    if ( /PLACED/ ) {
         
         my @definfo     = split ( ' ' , $' ) ;
-        if ( @definfo >= 2 ) {
-            $cellname       = $definfo[1] ;
-            $celldir        = $definfo[-1] ;
-            $cellposx       = $definfo[-4] ;
-            $cellposy       = $definfo[-3] ;
+        my @preinfo     = split ( ' ' , $` ) ;
+        if ( @preinfo >= 2 ) {
+            $cellname       = $preinfo[2] ;
+            $celldir        = $definfo[4] ;
+            $cellposx       = $definfo[1] ;
+            $cellposy       = $definfo[2] ;
 
-            if ( $definfo[-1] eq "1" ) {
-                $celldir        = $definfo[-4] ;
-                $cellposx       = $definfo[-7] ;
-                $cellposy       = $definfo[-6] ;
-            }
             #print $celldir . "\n" ;
-            #print $. . "\n" ;
+            print $. . "\n" ;
          
             #read the all standard cell reference file
             open $cellref , "<" , $cellinfo or die "$cellinfo is not available!\n" ;
