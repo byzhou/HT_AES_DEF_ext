@@ -49,25 +49,69 @@ while ( $lefcell = readdir ( DIR ) ) {
             #put x y coordinates into the array
             while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
                 if ( $XorY ) {
-                    $XorY           = 1 ;
+                    $XorY           = 0 ;
                     $Yval[$count]   = $& ;
                 } else {
-                    $XorY           = 0 ;
+                    $XorY           = 1 ;
                     $Xval[$count]   = $& ;
                 }
                 $count ++ ;
             }
             
             #make poly to rect
+            my @alprint ;
             for ( my $i = 0 ; $i < $count ; $i = $i + 2 ) {
-                print $Xval[$i] . "\t" . $Yval[$i] . "\t" .
-                        $Xval[$i + 1] . "\t" . $Yval[$i + 1] . "\t" ;
-                $Xval[$i]       = 0 ;
-                $Yval[$i]       = 0 ;
-                $Xval[$i + 1]   = 0 ;
-                $Yval[$i + 1]   = 0 ;
+                
+                $already        = 0 ;
+                for ( my $k = 0 ; $k < @alprint ; $k ++ ) {
+                    if ( $alprint[$k] == $i ) {
+                        $already        = 1;
+                    }
+                }
 
+                if ( $already == 0 ) {
 
+                    print $Xval[$i] . "\t" . $Yval[$i] . "\t" .
+                            $Xval[$i + 1] . "\t" . $Yval[$i + 1] . "\t" ;
+                    @alprint        = push @alprint , ( $i ) ;
+                    @alprint        = push @alprint , ( $i + 1 ) ;
+
+                    for ( my $j = $i ; $j < $count ; $j ++ ) {
+                        
+                        $already        = 0 ;
+                        for ( my $k = 0 ; $k < @alprint ; $k ++ ) {
+                            if ( $alprint[$k] == $j ) {
+                                $already        = 1;
+                            }
+                        }
+
+                        if ( $already == 0 ) { 
+
+                            if ( $Xval[$i] eq $Xval[$i + 1] ) {
+                                if ( $Yval[$i] eq $Yval[$j] ) {
+                                    print $Xval[$j] . "\t" . $Yval[$j] . "\t" ;
+                                    @alprint        = push @alprint , $j ;
+                                }
+                                if ( $Yval[$i + 1] eq $Yval[$j] ) {
+                                    print $Xval[$j] . "\t" . $Yval[$j] . "\t" ;
+                                    @alprint        = push @alprint , $j ;
+                                }
+                            } else {
+                                if ( $Yval[$i] eq $Yval[$i + 1] ) {
+                                    if ( $Xval[$i] eq $Xval[$j] ) {
+                                        print $Xval[$j] . "\t" . $Yval[$j] . "\t" ;
+                                        @alprint        = push @alprint , $j ;
+                                    }
+                                    if ( $Xval[$i + 1] eq $Xval[$j] ) {
+                                        print $Xval[$j] . "\t" . $Yval[$j] . "\t" ;
+                                        @alprint        = push @alprint , $j ;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     #end of the one readFile

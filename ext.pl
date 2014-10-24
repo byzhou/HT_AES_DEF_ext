@@ -9,18 +9,17 @@ use warnings ;
 #system ( "./lef_ext.pl" ) ;
 
 #def file name
-$defHTFree  = "TrojanFree.def" ;
-#$defHTIn    = "TrojanIn.def" ;
+#$defHTFree  = "TrojanFree.def" ;
+$defHTIn    = "TrojanIn.def" ;
 
 #output file name
-$outFree    = "Free\_des.txt" ;
-#$outIn      = "In\_des.txt" ;
+#$outFree    = "Free\_des.txt" ;
+$outIn      = "In\_des.txt" ;
 
 #cell info file
 $cellinfo   = "des_ALLCELL.txt" ;
 
 sub dir ;
-
 
 #write to Trojan Free file
 for ( $xdownlimit = 50 ; $xdownlimit <= 550 ; $xdownlimit = $xdownlimit + 100 ) {
@@ -28,13 +27,13 @@ for ( $xdownlimit = 50 ; $xdownlimit <= 550 ; $xdownlimit = $xdownlimit + 100 ) 
     $ydownlimit     = $xdownlimit ;
     $xuplimit       = $xdownlimit + 10 ;
     $yuplimit       = $ydownlimit + 10 ;
-    $outFree        = "x" . $xdownlimit . $xuplimit . "y" . $ydownlimit . $yuplimit . "\.txt" ;
-    open $writeFree , "+>" , $outFree or die "$outFree is not available!\n" ; 
-    print $outFree . " has been successfully opened!\n" ;
+    $outIn          = "HTIn" . "x" . $xdownlimit . $xuplimit . "y" . $ydownlimit . $yuplimit . "\.txt" ;
+    open $writeFree , "+>" , $outIn or die "$outIn is not available!\n" ; 
+    print $outIn . " has been successfully opened!\n" ;
 
     #read Trojan Free file
-    open $readFree , "<" , $defHTFree or die "$defHTFree is not available!\n" ;
-    print $defHTFree . " has been successfully opened!\n" ;
+    open $readFree , "<" , $defHTIn or die "$defHTIn is not available!\n" ;
+    print $defHTIn . " has been successfully opened!\n" ;
 
     #write info the cell
     while ( <$readFree> ) {
