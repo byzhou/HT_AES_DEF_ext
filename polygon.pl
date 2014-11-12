@@ -57,6 +57,8 @@ while ( $lefcell = readdir ( DIR ) ) {
                 }
                 $count ++ ;
             }
+
+            print $Xval[0] . "\t" . $Yval[0] . "\n" ;
             
             #make poly to rect
             my @alprint ;

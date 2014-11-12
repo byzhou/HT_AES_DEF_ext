@@ -22,11 +22,12 @@ $cellinfo   = "des_ALLCELL.txt" ;
 sub dir ;
 
 #write to Trojan Free file
-for ( $xdownlimit = 50 ; $xdownlimit <= 550 ; $xdownlimit = $xdownlimit + 100 ) {
-
+#for ( $xdownlimit = 50 ; $xdownlimit <= 550 ; $xdownlimit = $xdownlimit + 100 ) {
+    $xdownlimit     = 300 ;
     $ydownlimit     = $xdownlimit ;
     $xuplimit       = $xdownlimit + 10 ;
     $yuplimit       = $ydownlimit + 10 ;
+
     $outIn          = "HTIn" . "x" . $xdownlimit . $xuplimit . "y" . $ydownlimit . $yuplimit . "\.txt" ;
     open $writeFree , "+>" , $outIn or die "$outIn is not available!\n" ; 
     print $outIn . " has been successfully opened!\n" ;
@@ -42,6 +43,7 @@ for ( $xdownlimit = 50 ; $xdownlimit <= 550 ; $xdownlimit = $xdownlimit + 100 ) 
             my @preinfo     = split ( ' ' , $` ) ;
 
             if ( @preinfo >= 2 ) {
+                $cellins        = $preinfo[1] ;
                 $cellname       = $preinfo[2] ;
                 $celldir        = $definfo[4] ;
                 $cellposx       = $definfo[1] / 2000 ;
@@ -65,9 +67,9 @@ for ( $xdownlimit = 50 ; $xdownlimit <= 550 ; $xdownlimit = $xdownlimit + 100 ) 
                 if ( ( $cellposx > $xdownlimit ) && ( $cellposx < $xuplimit ) &&
                         ( $cellposy > $ydownlimit ) && ( $cellposy < $yuplimit ) ) {
                     #print "found\n" ; 
-                    print $cellname . "\t" . $cellposx . "\t" . $cellposy . "\t" . $celldir . "\t" . $refxsize . "\t" . $refysize ;
-                    #print $writeFree $cellname . "\t" . $cellposx . "\t" . $cellposy . "\t" . $celldir . "\t" . $refxsize . "\t" . $refysize . "\n" ;
-                    &dir ( $celldir , $cellname , $cellposx , $cellposy , $refxsize , $refysize ) ;
+                    print $cellname . "\t" . $cellins . "\t" . $cellposx . "\t" . $cellposy . "\t" . $celldir . "\t" . $refxsize . "\t" . $refysize ;
+                    #print $writeFree $cellname . "\t" . $cellins . "\t" . $cellposx . "\t" . $cellposy . "\t" . $celldir . "\t" . $refxsize . "\t" . $refysize . "\n" ;
+                    &dir ( $celldir , $cellname , $cellins , $cellposx , $cellposy , $refxsize , $refysize ) ;
                 } #end if
                 close ( $cellref ) ;
             }
@@ -75,64 +77,64 @@ for ( $xdownlimit = 50 ; $xdownlimit <= 550 ; $xdownlimit = $xdownlimit + 100 ) 
     }
     close ( $writeFree ) ;
     close ( $readFree ) ;
-}
+#}
 
 #end of the one readFile
 
 sub dir {
-    my ( $celldir , $cellname , $cellposx , $cellposy , $refxsize , $refysize ) = @_ ;
+    my ( $celldir , $cellname , $cellins , $cellposx , $cellposy , $refxsize , $refysize ) = @_ ;
     switch ( $celldir ) {
         case "N"    { 
-            print $writeFree $cellname .( 
+            print $writeFree $cellname . $cellins .( 
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refysize ).(
                 "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy + $refysize ).(
                 "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy )
                 . "\n" 
         } case "S"  {
-            print $writeFree $cellname .( 
+            print $writeFree $cellname. ("\t") . $cellins .( 
                 "\t" ).( $cellposx - $refxsize ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refysize ).(
                 "\t" ).( $cellposx - $refxsize ).( "\t" ).( $cellposy - $refysize )
                 . "\n" 
         } case "W"  {
-            print $writeFree $cellname .( 
+            print $writeFree $cellname. ("\t") . $cellins .( 
                 "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy + $refxsize ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refxsize ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy )
                 . "\n" 
         } case "E"  {
-            print $writeFree $cellname .( 
+            print $writeFree $cellname. ("\t") . $cellins .( 
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy - $refxsize ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refxsize )
                 . "\n" 
         } case "FN"  {
-            print $writeFree $cellname .( 
+            print $writeFree $cellname. ("\t") . $cellins .( 
                 "\t" ).( $cellposx - $refxsize ).( "\t" ).( $cellposy + $refysize ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refysize ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx - $refxsize ).( "\t" ).( $cellposy )
                 . "\n" 
         } case "FS"  {
-            print $writeFree $cellname .( 
+            print $writeFree $cellname. ("\t") . $cellins .( 
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy - $refysize ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refysize )
                 . "\n" 
         } case "FW"  {
-            print $writeFree $cellname .( 
+            print $writeFree $cellname. ("\t") . $cellins .( 
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refxsize ).(
                 "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy + $refxsize ).(
                 "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy )
                 . "\n" 
         } else  {
-            print $writeFree $cellname .( 
+            print $writeFree $cellname. ("\t") . $cellins .( 
                 "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refxsize ).(
