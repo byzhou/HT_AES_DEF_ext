@@ -85,7 +85,7 @@ sub dir {
     my ( $celldir , $cellname , $cellins , $cellposx , $cellposy , $refxsize , $refysize ) = @_ ;
     switch ( $celldir ) {
         case "N"    { 
-            print $writeFree $cellname . $cellins .( 
+            print $writeFree $cellname. ("\t") .$cellins .( 
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refysize ).(
                 "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy + $refysize ).(
                 "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy ).(
