@@ -67,7 +67,7 @@ sub dir ;
                 if ( ( $cellposx > $xdownlimit ) && ( $cellposx < $xuplimit ) &&
                         ( $cellposy > $ydownlimit ) && ( $cellposy < $yuplimit ) ) {
                     #print "found\n" ; 
-                    print $cellname . "\t" . $cellins . "\t" . $cellposx . "\t" . $cellposy . "\t" . $celldir . "\t" . $refxsize . "\t" . $refysize ;
+                    print $cellname . "\t" . $cellins . "\t" . $celldir . "\t" . $cellposx . "\t" . $cellposy . "\t" . $celldir . "\t" . $refxsize . "\t" . $refysize ;
                     #print $writeFree $cellname . "\t" . $cellins . "\t" . $cellposx . "\t" . $cellposy . "\t" . $celldir . "\t" . $refxsize . "\t" . $refysize . "\n" ;
                     &dir ( $celldir , $cellname , $cellins , $cellposx , $cellposy , $refxsize , $refysize ) ;
                 } #end if
@@ -84,62 +84,90 @@ sub dir ;
 sub dir {
     my ( $celldir , $cellname , $cellins , $cellposx , $cellposy , $refxsize , $refysize ) = @_ ;
     switch ( $celldir ) {
-        case "N"    { 
+        case "N" { 
             print $writeFree $cellname. ("\t") .$cellins .( 
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refysize ).(
                 "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy + $refysize ).(
                 "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy )
                 . "\n" 
-        } case "S"  {
-            print $writeFree $cellname. ("\t") . $cellins .( 
-                "\t" ).( $cellposx - $refxsize ).( "\t" ).( $cellposy ).(
-                "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
-                "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refysize ).(
-                "\t" ).( $cellposx - $refxsize ).( "\t" ).( $cellposy - $refysize )
+        } case "S" {
+            print $writeFree $cellname. ("\t") .$cellins .( 
+                "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refysize ).(
+                "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy + $refysize ).(
+                "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy ).(
+                "\t" ).( $cellposx ).( "\t" ).( $cellposy )
                 . "\n" 
-        } case "W"  {
+        } case "W" {
             print $writeFree $cellname. ("\t") . $cellins .( 
                 "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy + $refxsize ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refxsize ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy )
                 . "\n" 
-        } case "E"  {
+        } case "E" {
             print $writeFree $cellname. ("\t") . $cellins .( 
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy - $refxsize ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refxsize )
                 . "\n" 
-        } case "FN"  {
-            print $writeFree $cellname. ("\t") . $cellins .( 
-                "\t" ).( $cellposx - $refxsize ).( "\t" ).( $cellposy + $refysize ).(
+        } case "FS" {
+            print $writeFree $cellname. ("\t") .$cellins .( 
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refysize ).(
-                "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
-                "\t" ).( $cellposx - $refxsize ).( "\t" ).( $cellposy )
-                . "\n" 
-        } case "FS"  {
-            print $writeFree $cellname. ("\t") . $cellins .( 
-                "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
+                "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy + $refysize ).(
                 "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy ).(
-                "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy - $refysize ).(
-                "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refysize )
-                . "\n" 
-        } case "FW"  {
-            print $writeFree $cellname. ("\t") . $cellins .( 
-                "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refxsize ).(
-                "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy + $refxsize ).(
-                "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy ).(
                 "\t" ).( $cellposx ).( "\t" ).( $cellposy )
                 . "\n" 
-        } else  {
-            print $writeFree $cellname. ("\t") . $cellins .( 
-                "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy ).(
-                "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
-                "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refxsize ).(
-                "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy - $refxsize )
+        } case "FN" {
+            print $writeFree $cellname. ("\t") .$cellins .( 
+                "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refysize ).(
+                "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy + $refysize ).(
+                "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy ).(
+                "\t" ).( $cellposx ).( "\t" ).( $cellposy )
                 . "\n" 
+        } case "FW" {
+            print $writeFree $cellname. ("\t") . $cellins .( 
+                "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
+                "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy ).(
+                "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy - $refxsize ).(
+                "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refxsize )
+                . "\n" 
+        } case "FE" {
+            print $writeFree $cellname. ("\t") . $cellins .( 
+                "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy + $refxsize ).(
+                "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refxsize ).(
+                "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
+                "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy )
+                . "\n" 
+#        } case "FN"  {
+#            print $writeFree $cellname. ("\t") . $cellins .( 
+#                "\t" ).( $cellposx - $refxsize ).( "\t" ).( $cellposy + $refysize ).(
+#                "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refysize ).(
+#                "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
+#                "\t" ).( $cellposx - $refxsize ).( "\t" ).( $cellposy )
+#                . "\n" 
+#        } case "FS"  {
+#            print $writeFree $cellname. ("\t") . $cellins .( 
+#                "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
+#                "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy ).(
+#                "\t" ).( $cellposx + $refxsize ).( "\t" ).( $cellposy - $refysize ).(
+#                "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refysize )
+#                . "\n" 
+#        } case "FW"  {
+#            print $writeFree $cellname. ("\t") . $cellins .( 
+#                "\t" ).( $cellposx ).( "\t" ).( $cellposy + $refxsize ).(
+#                "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy + $refxsize ).(
+#                "\t" ).( $cellposx + $refysize ).( "\t" ).( $cellposy ).(
+#                "\t" ).( $cellposx ).( "\t" ).( $cellposy )
+#                . "\n" 
+#        } else  {
+#            print $writeFree $cellname. ("\t") . $cellins .( 
+#                "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy ).(
+#                "\t" ).( $cellposx ).( "\t" ).( $cellposy ).(
+#                "\t" ).( $cellposx ).( "\t" ).( $cellposy - $refxsize ).(
+#                "\t" ).( $cellposx - $refysize ).( "\t" ).( $cellposy - $refxsize )
+#                . "\n" 
         } 
     } #end switch
 }
