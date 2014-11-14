@@ -23,10 +23,10 @@ sub dir ;
 
 #write to Trojan Free file
 #for ( $xdownlimit = 50 ; $xdownlimit <= 550 ; $xdownlimit = $xdownlimit + 100 ) {
-    $xdownlimit     = 0 ;
+    $xdownlimit     = 300 ;
     $ydownlimit     = $xdownlimit ;
-    $xuplimit       = $xdownlimit + 600 ;
-    $yuplimit       = $ydownlimit + 600 ;
+    $xuplimit       = $xdownlimit + 50 ;
+    $yuplimit       = $ydownlimit + 50 ;
 
     $outIn          = "HTIn" . "x" . $xdownlimit . $xuplimit . "y" . $ydownlimit . $yuplimit . "\.txt" ;
     open $writeFree , "+>" , $outIn or die "$outIn is not available!\n" ; 
