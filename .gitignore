@@ -3,3 +3,4 @@
 *.log
 *.pdf
 !des_ALLCELL.txt
+test_gds
