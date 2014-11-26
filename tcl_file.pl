@@ -8,9 +8,8 @@ $lefpre     = "lef\/" ;
 $lefsuf     = "\.lef" ;
 $lefcell    = $lefpre ;
 $lefname    = $lefpre ;
-$XorY       = 0 ;
 
-$output     = "des\_ALLCELL.txt" ;
+$output     = "setattributefalse.txt" ;
 #write to file
 open $writeFile , "+>" , $output or die "$output is not available!\n" ; 
 print $output . " has been successfully opened!\n" ;
@@ -34,24 +33,12 @@ while ( $lefcell = readdir ( DIR ) ) {
 
     #write the name of the cell
     $lefcell        =~ s/$lefsuf//g ;
-    print $writeFile $lefcell . "\t" ;
+    #print $writeFile $lefcell . "\t" ;
 
     #write info the cell
-    while ( <$readFile> ) {
-        if ( /SIZE*/ ) {
-            print $writeFile "$&\t" ;
-            #matching a floating number [-+]?([0-9]*\.[0-9]+|[0-9]+)
-            while ( /[-+]?([0-9]*\.[0-9]+|[0-9]+)/g ) {
-                if ( $XorY == 0 ) {
-                    print $writeFile "X\t$&\t" ;
-                    $XorY   = 1 ;
-                } else {
-                    print $writeFile "Y\t$&" ;
-                    $XorY   = 0 ;
-                }
-            }
-        }
-    }
+    print $writeFile "cd \/libraries\/NangateOpenCellLibrary\/libcells\/$lefcell\n" ;
+    print $writeFile "set\_attribute avoid true\n" ;
+
     #end of the one readFile
     print $writeFile "\n" ;
 
