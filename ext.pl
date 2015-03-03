@@ -10,7 +10,7 @@ use warnings ;
 
 #def file name
 #$defHTFree  = "TrojanFree.def" ;
-$defHTIn    = "TrojanIn.def" ;
+$defHTIn    = "TjIn.def" ;
 
 #output file name
 #$outFree    = "Free\_des.txt" ;
@@ -22,11 +22,11 @@ $cellinfo   = "des_ALLCELL.txt" ;
 sub dir ;
 
 #write to Trojan Free file
-#for ( $xdownlimit = 50 ; $xdownlimit <= 550 ; $xdownlimit = $xdownlimit + 100 ) {
-    $xdownlimit     = 300 ;
+for ( $xdownlimit = 0 ; $xdownlimit <= 100 ; $xdownlimit = $xdownlimit + 10 ) {
+    #$xdownlimit     = 0 ;
     $ydownlimit     = $xdownlimit ;
-    $xuplimit       = $xdownlimit + 50 ;
-    $yuplimit       = $ydownlimit + 50 ;
+    $xuplimit       = $xdownlimit + 10 ;
+    $yuplimit       = $ydownlimit + 10 ;
 
     $outIn          = "HTIn" . "x" . $xdownlimit . $xuplimit . "y" . $ydownlimit . $yuplimit . "\.txt" ;
     open $writeFree , "+>" , $outIn or die "$outIn is not available!\n" ; 
@@ -51,6 +51,7 @@ sub dir ;
 
                 #read the all standard cell reference file
                 open $cellref , "<" , $cellinfo or die "$cellinfo is not available!\n" ;
+                #print $cellinfo . " has been successfully opened!\n" ;
 
                 while ( <$cellref> ) {
                     my @refinfo     = split ( '\t' , $_ ) ;
@@ -67,7 +68,7 @@ sub dir ;
                 if ( ( $cellposx > $xdownlimit ) && ( $cellposx < $xuplimit ) &&
                         ( $cellposy > $ydownlimit ) && ( $cellposy < $yuplimit ) ) {
                     #print "found\n" ; 
-                    print $cellname . "\t" . $cellins . "\t" . $celldir . "\t" . $cellposx . "\t" . $cellposy . "\t" . $celldir . "\t" . $refxsize . "\t" . $refysize ;
+                    #print $cellname . "\t" . $cellins . "\t" . $celldir . "\t" . $cellposx . "\t" . $cellposy . "\t" . $celldir . "\t" . $refxsize . "\t" . $refysize ;
                     #print $writeFree $cellname . "\t" . $cellins . "\t" . $cellposx . "\t" . $cellposy . "\t" . $celldir . "\t" . $refxsize . "\t" . $refysize . "\n" ;
                     &dir ( $celldir , $cellname , $cellins , $cellposx , $cellposy , $refxsize , $refysize ) ;
                 } #end if
@@ -77,7 +78,7 @@ sub dir ;
     }
     close ( $writeFree ) ;
     close ( $readFree ) ;
-#}
+}
 
 #end of the one readFile
 
