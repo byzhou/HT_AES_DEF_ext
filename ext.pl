@@ -21,12 +21,30 @@ $cellinfo   = "des_ALLCELL.txt" ;
 
 sub dir ;
 
+$helpInfo   = << "EOF" ;
+
+Usage: Sample the square areas from bottom left to the top right. The output
+format is more organized then the lef files.
+
+    - First argument    # start point
+    - Second argument   # end point
+    - Last argument     # step size
+
+    example:
+        ./ext.pl 0 100 10 # sampling data from the first 10x10 square to the top
+        lef 10x10 square
+EOF
+
+if ( $#ARGV != 4 ) {
+    print $helpInfo . "\n" ;
+}
+
 #write to Trojan Free file
-for ( $xdownlimit = 0 ; $xdownlimit <= 100 ; $xdownlimit = $xdownlimit + 10 ) {
+for ( $xdownlimit = $ARGV[0] ; $xdownlimit <= $ARGV[1] ; $xdownlimit = $xdownlimit + $ARGV[2] ) {
     #$xdownlimit     = 0 ;
     $ydownlimit     = $xdownlimit ;
-    $xuplimit       = $xdownlimit + 10 ;
-    $yuplimit       = $ydownlimit + 10 ;
+    $xuplimit       = $xdownlimit + $ARGV[1] ;
+    $yuplimit       = $ydownlimit + $ARGV[2] ;
 
     $outIn          = "HTIn" . "x" . $xdownlimit . $xuplimit . "y" . $ydownlimit . $yuplimit . "\.txt" ;
     open $writeFree , "+>" , $outIn or die "$outIn is not available!\n" ; 
