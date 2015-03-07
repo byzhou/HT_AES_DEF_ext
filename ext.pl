@@ -35,18 +35,22 @@ format is more organized then the lef files.
         lef 10x10 square
 EOF
 
-if ( $#ARGV != 4 ) {
+if ( $#ARGV != 3 ) {
     print $helpInfo . "\n" ;
 }
+#print $ARGV[0] . "\ ". $ARGV[1] . "\ " . $ARGV[2] . "\ ";
 
+
+$cmd    = "rm txt/*";
+system ($cmd);
 #write to Trojan Free file
 for ( $xdownlimit = $ARGV[0] ; $xdownlimit <= $ARGV[1] ; $xdownlimit = $xdownlimit + $ARGV[2] ) {
     #$xdownlimit     = 0 ;
     $ydownlimit     = $xdownlimit ;
-    $xuplimit       = $xdownlimit + $ARGV[1] ;
-    $yuplimit       = $ydownlimit + $ARGV[2] ;
+    $xuplimit       = $xdownlimit + 10 ;
+    $yuplimit       = $ydownlimit + 10 ;
 
-    $outIn          = "HTIn" . "x" . $xdownlimit . $xuplimit . "y" . $ydownlimit . $yuplimit . "\.txt" ;
+    $outIn          = "txt/" . "HTIn" . "x" . $xdownlimit . $xuplimit . "y" . $ydownlimit . $yuplimit . "\.txt" ;
     open $writeFree , "+>" , $outIn or die "$outIn is not available!\n" ; 
     print $outIn . " has been successfully opened!\n" ;
 
