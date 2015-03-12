@@ -17,7 +17,6 @@ print $output . " has been successfully opened!\n" ;
 
 opendir ( DIR , $lefpre ) or die "$lefpre is not available!\n" ;
 print $lefpre . " has been successfully opened!\n" ;
-close ( DIR ) ;
 
 #cellname creation
 while ( $lefcell = readdir ( DIR ) ) {
